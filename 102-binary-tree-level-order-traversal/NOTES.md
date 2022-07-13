@@ -1,1 +1,1 @@
-In level order traversal we take a queue and store the root node in the queue and check for its children.At every level the queue is emptied and stored in a list.And at last we return the list of list.
+​
