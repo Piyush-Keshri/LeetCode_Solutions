@@ -1,48 +1,48 @@
 class Solution {
-
-    public void dfs(int node,ArrayList<ArrayList<Integer>> adj,int[]vis){
+    
+    public void dfs(int node,boolean[] vis,ArrayList<ArrayList<Integer>>adj){
         
-    vis[node] = 1;
+        vis[node] = true;
         
         for(Integer it: adj.get(node)){
-            if(vis[it]==0)
-                dfs(it,adj,vis);
+            if(vis[it] == false)
+            dfs(it,vis,adj);
+            
         }
         
     }
     
-    
     public int findCircleNum(int[][] isConnected) {
         
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
+        int V = isConnected.length;
         
-        for(int i =0 ; i<isConnected.length;i++){
-            adj.add(new ArrayList<Integer>());    
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
+        boolean[] vis = new boolean[V+1];
+    
+        for(int i = 0;i<V;i++){
+            adj.add(new ArrayList<Integer>());        
         }
-//         Change the Adjancency Matrix to Adjancency list.
-        for(int i = 0; i<isConnected.length;i++){
-            for(int j = 0;j<isConnected[0].length;j++){
+        
+        for(int i=0;i<V;i++){
+            for(int j=0;j<V;j++){
                 
                 if(isConnected[i][j] == 1 && i!=j){
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
-                }
-                
+                adj.get(i).add(j);
+                adj.get(j).add(i); 
+                }           
             }
         }
-        
-        int[]vis = new int[isConnected.length];
+      
         int cnt = 0;
-        
-        for(int i=0;i<isConnected.length;i++){
+  
+        for(int i =0;i<V;i++){
             
-            if(vis[i] == 0){
+            if(vis[i] == false){
                 cnt++;
-                dfs(i,adj,vis);
+                dfs(i,vis,adj);
             }
             
         }
-        
         return cnt;
     }
 }
