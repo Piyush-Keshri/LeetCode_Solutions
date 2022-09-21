@@ -6,29 +6,27 @@ class Solution {
         
         for(int num : nums){
             
-            if(num%2 == 0)
-            evenSum+=num;
+            if(num%2 == 0){
+             evenSum+=num;   
+            }
         }
         
-        
-        int ansIndx = 0;
-        for(int[] arr : queries){
-            int val = arr[0];
+       int ansIndx = 0;
+        for(int[] arr:queries){
+            
             int indx = arr[1];
+            int val = arr[0];
             int numVal = nums[indx];
             
-            if(numVal%2 == 0)
-                evenSum-=numVal;
-            
+            if(numVal%2 == 0) evenSum-=numVal;
             numVal+=val;
             nums[indx] = numVal;
             
-            if(numVal%2 == 0)
-                evenSum+=numVal;  
+            if(numVal%2 == 0) evenSum+=numVal;
             
-            ans[ansIndx++] = evenSum;
+            ans[ansIndx++] = evenSum;  
+            
         }
         return ans;
-        
     }
 }
