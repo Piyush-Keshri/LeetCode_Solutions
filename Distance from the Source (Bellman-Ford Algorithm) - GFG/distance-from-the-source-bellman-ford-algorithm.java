@@ -76,10 +76,8 @@ class Solution {
         
         if(dist[u]!=1e8 && dist[u]+wt < dist[v]){
             
-            int[] temp = new int[1];
-            temp[0] = -1;
-            return temp;
-        }
+            return new int[]{-1};
+            }
         
     }
     return dist;
