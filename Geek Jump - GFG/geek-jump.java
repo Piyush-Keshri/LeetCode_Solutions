@@ -35,21 +35,31 @@ class Solution{
         
         int dp[] = new int[N];
         Arrays.fill(dp,-1);
-        int jumpTwo = Integer.MAX_VALUE;
-        dp[0] = 0;
         
-        for(int i =1;i<N;i++){
+        return helper(N-1,arr,dp);
+        
+    }
+    
+    public int helper(int indx,int arr[],int dp[]){
+        
+        if(indx == 0){
+            return 0;
+        }
+        
+        if(dp[indx]!=-1){
+            return dp[indx];
+        }
+        int jumpTwo = Integer.MAX_VALUE;
+        
+        int jumpOne = helper(indx-1,arr,dp) + Math.abs(arr[indx-1] - arr[indx]);
+        
+        if(indx>1){
             
-            int jumpOne = dp[i-1] + Math.abs(arr[i] - arr[i-1]);
-            
-            if(i>1){
-                jumpTwo = dp[i-2] + Math.abs(arr[i] - arr[i-2]);
-            }
-            
-            dp[i] = Math.min(jumpOne,jumpTwo);
+        jumpTwo = helper(indx-2,arr,dp) + Math.abs(arr[indx-2] - arr[indx]);
             
         }
         
-        return dp[N-1];
-    }
+    return dp[indx] = Math.min(jumpOne,jumpTwo);
+    } 
+    
 }
