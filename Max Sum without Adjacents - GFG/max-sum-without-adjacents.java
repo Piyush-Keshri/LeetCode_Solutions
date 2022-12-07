@@ -32,22 +32,32 @@ public class Main {
 
 class Solution {
     int findMaxSum(int arr[], int n) {
-        
-        int[] dp = new int[n];
-        Arrays.fill(dp,-1);
-        
-        return solveUtil(n-1, arr, dp);
-        
+       int[] dp = new int[n];
+       Arrays.fill(dp,-1);
+       
+       return tabulation(n,arr,dp);
+       
     }
     
-    static int solveUtil(int ind, int[] arr, int[] dp){
-    if(ind<0)  return 0;
-    if(ind==0) return arr[ind];
-    if(dp[ind]!=-1) return dp[ind];
-    int pick= arr[ind]+ solveUtil(ind-2, arr,dp);
-    int nonPick = 0 + solveUtil(ind-1, arr, dp);
-    
-    return dp[ind]=Math.max(pick, nonPick);
-}
+    int tabulation(int n,int[] arr,int[] dp){
+        
+       dp[0] = arr[0];
+        
+        for(int i = 1;i<n;i++){
+            
+            int pick = arr[i];
+            
+            if(i>1){
+                
+                pick += dp[i-2];
+            }
+                int nonpick = 0 + dp[i-1];
+                dp[i] = Math.max(pick,nonpick);
+                
+            
+            
+        }
+        return dp[n-1];
+    }
     
 }
