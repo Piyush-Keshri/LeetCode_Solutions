@@ -29,36 +29,35 @@ class GFG{
 //User function Template for Java
 
 class Solution{
+    
     public int minimizeCost(int arr[],int N,int K){
-        
-        int dp[] = new int[N];
+        int[] dp = new int[N];
         Arrays.fill(dp,-1);
         
-    return memoization(N-1,arr,dp,K);
-
+       return tabulation(N,arr,dp,K);
+        
     }
     
-    public int memoization(int indx,int[] arr,int[] dp,int K){
+    public int tabulation(int N,int[] arr,int[] dp,int K){
         
-        if(indx == 0){
-            return 0;
-        }
+        dp[0] = 0;
         
-        if(dp[indx] != -1){
-            return dp[indx];
-        }
-        
-        int minJump = Integer.MAX_VALUE;
-        
-        for(int i = 1;i<=K;i++){
+        for(int i = 1;i<N;i++){
             
-            if(indx - i >=0){
+            int minJump = Integer.MAX_VALUE;
+            
+            for(int j = 1 ;j<=K;j++){
                 
-                int jump = memoization(indx-i,arr,dp,K) + Math.abs(arr[indx] - arr[indx-i]);
-                minJump = Math.min(jump,minJump);
+                if(i-j>=0){
+                    
+                    int jump = dp[i-j] + Math.abs(arr[i] - arr[i-j]);
+                    minJump = Math.min(jump,minJump);
+                }
             }
+            
+            dp[i] = minJump;
         }
-       return dp[indx] = minJump;
+        return dp[N-1];
     }
     
 }
