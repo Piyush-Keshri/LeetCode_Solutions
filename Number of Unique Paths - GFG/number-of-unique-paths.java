@@ -32,31 +32,37 @@ class Solution
     //Function to find total number of unique paths.
     public static int NumberOfPath(int a, int b) 
     {
-      int[][] dp = new int[a][b];
-      for(int[] row : dp){
-          Arrays.fill(row,-1);
-      }
-      
-     return memoization(0,0,a-1,b-1,dp);
+        
+        int[][] dp = new int[a][b];
+        
+        for(int[] row : dp){
+            Arrays.fill(row,-1);
+        }
+    return tabulation(a,b,dp);
     }
     
-    public static int memoization(int i,int j,int row,int col,int[][]dp){
+    public static int tabulation(int row,int col,int[][] dp){
         
-        if(i==row && j==col){
-            return 1;
-        }
-        
-        if(i>row || j>col){
-            return 0;
-        }
-        
-        if(dp[i][j] != -1){
-            return dp[i][j];
-        }
-        
-        int down = memoization(i+1,j,row,col,dp);
-        int right = memoization(i,j+1,row,col,dp);
+        for(int i=0;i<row;i++){
             
-        return dp[i][j] = down + right;    
+            dp[i][0] = 1;
+        }
+        
+        for(int j =0;j<col;j++){
+            
+            dp[0][j] = 1;
+        }
+        
+        for(int i=1 ;i<row;i++){
+            
+            for(int j=1;j<col;j++){
+                
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                
+            }
+            
+        }
+       return dp[row-1][col-1]; 
     }
+    
 }
