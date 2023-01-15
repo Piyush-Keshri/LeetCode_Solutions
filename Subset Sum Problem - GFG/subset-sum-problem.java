@@ -30,42 +30,41 @@ class GFG
 
 // } Driver Code Ends
 
+
+//User function Template for Java
+
 class Solution{
-    
+
+
     static Boolean isSubsetSum(int N, int arr[], int sum){
-    
-        int[][] dp = new int[N][sum+1];
         
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
+        boolean dp[][] = new boolean[N][sum+1];
+        
+        for(int i =0;i<N;i++){
+            dp[i][0] = true;
         }
         
-        return memoization(N-1,sum,arr,dp);
+        if(arr[0] <= sum){
+            
+            dp[0][arr[0]] = true;
+        }
+        
+        for(int indx = 1;indx<N ; indx++){
+            
+            for(int target = 1;target<=sum;target++){
+                
+                boolean notTaken = dp[indx-1][target];
+                
+                boolean taken = false;
+                if(arr[indx]<=target){
+                    taken = dp[indx-1][target - arr[indx]];
+                }
+                
+                dp[indx][target] = notTaken || taken;
+                
+            }
+            
+        }
+        return dp[N-1][sum];
     }
-    
-    static Boolean memoization(int indx,int target,int[] arr,int[][] dp){
-        
-        if(target == 0){
-            return true;
-        }
-        
-        if(indx == 0){
-            return target == arr[0];
-        }
-        
-        if(dp[indx][target] != -1){
-            return dp[indx][target] == 0?false:true;
-        }
-        
-        boolean notTaken = memoization(indx-1,target,arr,dp);
-        boolean taken = false;
-        
-        if(arr[indx] <= target){
-            taken = memoization(indx-1,target-arr[indx],arr,dp);
-        }
-        dp[indx][target] = notTaken || taken ? 1:0;
-            return notTaken || taken;
-        
-    }
-    
 }
