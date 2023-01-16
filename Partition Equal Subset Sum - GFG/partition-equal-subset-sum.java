@@ -61,28 +61,27 @@ class Solution{
     
     public static boolean memoization(int indx,int target,int[] arr,int[][] dp){
         
-       if(target == 0){
-            return true;
+      if(target == 0){
+          return true;
+      }
+      
+      if(indx == 0){
+          return arr[0] == target ;
+      }
+    
+    if(dp[indx][target] != -1){
+        return dp[indx][target] == 0 ?false:true;
+    }    
+     
+     boolean notTake = memoization(indx-1,target,arr,dp);
+     boolean take = false;
+        
+        if(arr[indx]<= target){
+            take = memoization(indx-1,target-arr[indx],arr,dp);
         }
         
-        if(indx == 0){
-            return target == arr[0];
-        }
-        
-        if(dp[indx][target] != -1){
-            return dp[indx][target] == 0?false:true;
-        }
-        
-        boolean notTaken = memoization(indx-1,target,arr,dp);
-        boolean taken = false;
-        
-        if(arr[indx] <= target){
-            taken = memoization(indx-1,target-arr[indx],arr,dp);
-        }
-        dp[indx][target] = notTaken || taken ? 1:0;
-            return notTaken || taken;
-        
-        
+       dp[indx][target] = notTake || take ? 1:0;
+            return notTake || take;
     }
 }
 
