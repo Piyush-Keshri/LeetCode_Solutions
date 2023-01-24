@@ -48,44 +48,30 @@ class gfg
 
 class Solution 
 { 
-    //Function to return max value that can be put in knapsack of capacity W.
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
-        int[][] dp = new int[n][W+1];
+        int dp[][] = new int[n][W+1];
         
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
+        for(int i = wt[0];i<=W;i++){
+            dp[0][i] = val[0];
         }
         
-        return memoization(n-1,W,wt,val,dp);
-    } 
-    
-    static int memoization(int indx,int W,int[] wt,int[] val,int[][] dp){
-        
-        if(indx == 0){
-            if(wt[0] <= W){
-                return val[0];
+        for(int i = 1;i<n;i++){
+            
+            for(int j = 0 ;j<=W;j++){
+                int notTake = dp[i-1][j];
+                
+                int take = Integer.MIN_VALUE;
+                
+                if(wt[i] <= j){
+                    take = val[i] + dp[i-1][j-wt[i]];
+                }
+                dp[i][j] = Math.max(take,notTake);
             }
-            return 0;
+            
         }
-        
-        if(dp[indx][W] != -1){
-            return dp[indx][W];
-        }
-        
-        int notTake = memoization(indx-1,W,wt,val,dp);
-        
-        int take = Integer.MIN_VALUE;
-        
-        if(wt[indx]<=W){
-            take = val[indx]+memoization(indx-1,W-wt[indx],wt,val,dp);
-        }
-        dp[indx][W] = Math.max(notTake,take);
-        return dp[indx][W];
-        
-    
-    }
-    
+        return dp[n-1][W];
+    } 
 }
 
 
