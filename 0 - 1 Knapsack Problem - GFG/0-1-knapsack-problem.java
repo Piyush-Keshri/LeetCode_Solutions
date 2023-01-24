@@ -53,19 +53,17 @@ class Solution
     { 
         int[][] dp = new int[n][W+1];
         
-        for(int[] row:dp){
+        for(int[] row : dp){
             Arrays.fill(row,-1);
         }
         
-    return memoization(n-1,W,wt,val,dp);
-        
+        return memoization(n-1,W,wt,val,dp);
     } 
     
     static int memoization(int indx,int W,int[] wt,int[] val,int[][] dp){
         
         if(indx == 0){
-            
-            if(wt[0]<=W){
+            if(wt[0] <= W){
                 return val[0];
             }
             return 0;
@@ -80,13 +78,13 @@ class Solution
         int take = Integer.MIN_VALUE;
         
         if(wt[indx]<=W){
-            take = val[indx] + memoization(indx-1,W-wt[indx],wt,val,dp);
+            take = val[indx]+memoization(indx-1,W-wt[indx],wt,val,dp);
         }
-        
         dp[indx][W] = Math.max(notTake,take);
         return dp[indx][W];
-    }
+        
     
+    }
     
 }
 
