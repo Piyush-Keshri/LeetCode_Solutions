@@ -1,40 +1,36 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
+        
         int n = coins.length;
-        int[][] dp = new int[n][amount+1];
+        int[][] dp = new int[n][amount+1]; 
         
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        
-        int ans =  memoization(n-1,amount,dp,coins);
-          if(ans >= (int)Math.pow(10,9)) return -1;
-    return ans;
-        
-    }
-    
-    public int memoization(int indx,int amount,int[][] dp,int[] coins){
-        
-        if(indx == 0){
+        for(int i =0;i<=amount;i++){
             
-            if(amount%coins[0] == 0){
-                return amount/coins[0];
+            if(i%coins[0] == 0){
+                dp[0][i] = i/coins[0];
             }
-            return (int)1e9;
+            else
+                dp[0][i] = (int)1e9;
         }
         
-        if(dp[indx][amount] != -1){
-            return dp[indx][amount];
+        for(int i = 1;i<n;i++){
+            
+            for(int tar = 0 ;tar<=amount;tar++){
+                
+                int notTake = dp[i-1][tar];
+                int take = (int)1e9;
+                
+                if(coins[i]<=tar){
+                    take = 1+dp[i][tar-coins[i]];
+                }
+                dp[i][tar] = Math.min(notTake,take);
+            }
+            
         }
         
-        int notTake = memoization(indx-1,amount,dp,coins);
-        
-        int take = Integer.MAX_VALUE;
-        
-        if(coins[indx] <= amount){
-            take = 1+ memoization(indx,amount-coins[indx],dp,coins);
+        if(dp[n-1][amount] >= (int)1e9){
+            return -1;
         }
-        return dp[indx][amount] = Math.min(take,notTake);
+        return dp[n-1][amount];
     }
-    
 }
