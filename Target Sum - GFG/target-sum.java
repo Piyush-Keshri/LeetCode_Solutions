@@ -33,65 +33,36 @@ class GFG {
 
 class Solution {
     static int findTargetSumWays(int[] A , int N, int target) {
-       int totSum=0;
-       for(int x: A){
-           totSum+=x; 
-       }
-       if(totSum < target) return 0;
-       if((totSum-target)%2 == 1) return 0;
-       
-       int s2 = (totSum-target)/2;
-      
-       int[][] dp = new int[N][s2+1]; 
-       
-       for(int[] rows : dp){
-           Arrays.fill(rows,-1);
-       }
-       
-       return memoization(N-1,s2,A,dp);
-    }
-    
-    public static int memoization(int indx,int target,int[] arr,int[][] dp){
         
-        if(indx == 0){
-            
-            if(target == 0 && arr[0] ==0){
-                return 2;
+        int totSum = 0;
+        for(int x: A){
+            totSum+=x;
+        }
+        
+        if(totSum<target || (totSum-target)%2 !=0) return 0;
+        int s = (totSum-target)/2;
+        
+        int[][] dp = new int[N][s+1];
+        
+        if(A[0] == 0) dp[0][0] = 2;
+        else dp[0][0] = 1;
+        
+        if(A[0]!=0 && A[0]<=s) dp[0][A[0]] = 1;
+        
+        for(int i=1;i<N;i++){
+            for(int tar = 0;tar<=s;tar++){
+                
+                int notTake = dp[i-1][tar];
+                int take = 0;
+                
+                if(A[i] <=tar){
+                    take = dp[i-1][tar-A[i]];
+                    
+                }
+                dp[i][tar] = take+notTake;
             }
-            if(target == 0 || arr[0] == target){
-                return 1;
-            }
-            return 0;
         }
         
-        if(dp[indx][target] != -1){
-            return dp[indx][target];
-        }
-    
-        int notTake = memoization(indx-1,target,arr,dp);
-        
-        int take = 0;
-        
-        if(arr[indx] <= target){
-            take = memoization(indx-1,target-arr[indx],arr,dp);
-        }
-        return dp[indx][target] = take+notTake;
+        return dp[N-1][s];
     }
-    
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
