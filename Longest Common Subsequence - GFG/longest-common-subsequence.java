@@ -26,38 +26,37 @@ class GFG {
 
 class Solution
 {
-    //Function to find the length of longest common subsequence in two strings.
     static int lcs(int x, int y, String s1, String s2)
     {
-    
-        int[][] dp = new int[x][y];
+        int[][] dp = new int[x+1][y+1];
         
-        for(int[] rows:dp){
-            Arrays.fill(rows,-1);
-        }
-    
-        return memoization(x-1,y-1,s1,s2,dp);
-    
-    }
-    
-    public static int memoization(int indx1,int indx2,String s1,String s2,int[][] dp){
-        
-        if(indx1<0 || indx2<0){
-            return 0;
+        for(int[] row:dp){
+            Arrays.fill(row,-1);
         }
         
-        if(dp[indx1][indx2] != -1){
-            return dp[indx1][indx2];
+        for(int i = 0;i<=x;i++){
+            dp[i][0] = 0;
         }
         
-        if(s1.charAt(indx1) == s2.charAt(indx2)){
-        return dp[indx1][indx2] = 1 + memoization(indx1-1,indx2-1,s1,s2,dp);
+        for(int j = 0;j<=y;j++){
+            dp[0][j] = 0;
         }
         
-        else
-        return dp[indx1][indx2] = Math.max(memoization(indx1,indx2-1,s1,s2,dp),
-                                        memoization(indx1-1,indx2,s1,s2,dp));
-        
+        for(int i = 1;i<=x;i++){
+            
+            for(int j = 1;j<=y;j++){
+                
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = 1+dp[i-1][j-1];
+                }
+                
+                else
+                dp[i][j] =Math.max(dp[i-1][j],dp[i][j-1]);
+                
+            }
+            
+        }
+        return dp[x][y];
     }
     
 }
