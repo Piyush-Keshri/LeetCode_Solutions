@@ -4,8 +4,6 @@ class Solution {
         if(s.length() == 1){
             return true;
         }
-        
-        int f = s.indexOf("b");
         int l = s.lastIndexOf("a");
 
        for(int i =l;i>=0;i--){
