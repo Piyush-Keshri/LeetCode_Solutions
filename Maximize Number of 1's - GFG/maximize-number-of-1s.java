@@ -33,23 +33,23 @@ class GFG {
 class Solve {
     // m is maximum of number zeroes allowed to flip
     int findZeroes(int arr[], int n, int m) {
-        int count = 0;
-        int maxCount = 0;
+        int count =0;
+        int maxCount =0;
         int j = -1;
         
-        for(int i=0;i<n;i++){
+        for(int i =0;i<n;i++){
             
-            if(arr[i] ==0){
+            if(arr[i] == 0){
                 count++;
             }
             
             while(count>m){
                 j++;
+                
                 if(arr[j] == 0){
                     count--;
                 }
             }
-            
             int len = i-j;
             maxCount = Math.max(maxCount,len);
         }
