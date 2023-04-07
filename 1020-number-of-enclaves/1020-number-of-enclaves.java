@@ -3,72 +3,80 @@ class Solution {
         
         int n = grid.length;
         int m = grid[0].length;
-        int cnt = 0;
         
-        int[][] vis = new int[n][m];
-        int[] delRow = {-1,0,1,0};
-        int[] delCol = {0,1,0,-1};
+        boolean[][] vis = new boolean[n][m];
         
-//         Traversing First And Last Row
         for(int i=0;i<m;i++){
             
-//             First Row
-            if(grid[0][i] == 1 && vis[0][i] == 0){
-                dfs(0,i,n,m,grid,vis,delRow,delCol);
+//             First row
+            if(grid[0][i] == 1 && !vis[0][i]){
+                bfs(0,i,n,m,grid,vis);
             }
             
 //             Last Row
-            if(grid[n-1][i] == 1 && vis[n-1][i] == 0){
-                dfs(n-1,i,n,m,grid,vis,delRow,delCol);
+            if(grid[n-1][i] == 1 && !vis[n-1][i]){
+                bfs(n-1,i,n,m,grid,vis);
             }
-            
         }
         
-//         Traversing First And Last Column
         for(int i=0;i<n;i++){
             
-//             First Col
-            if(grid[i][0] == 1 && vis[i][0] == 0){
-                dfs(i,0,n,m,grid,vis,delRow,delCol);
+//             First Column
+            if(grid[i][0] == 1 && !vis[i][0]){
+                bfs(i,0,n,m,grid,vis);
             }
             
-//             Last Col
-            if(grid[i][m-1] == 1 && vis[i][m-1] == 0){
-                dfs(i,m-1,n,m,grid,vis,delRow,delCol);
+//             Last Column
+            if(grid[i][m-1] == 1 && !vis[i][m-1]){
+                bfs(i,m-1,n,m,grid,vis);
             }
             
         }
-        
-        for(int i =0;i<n;i++){
+        int count =0;
+        for(int i = 0;i<n;i++){
             for(int j=0;j<m;j++){
                 
-                if(grid[i][j] == 1 && vis[i][j] == 0){
-                    cnt++;
+                if(grid[i][j] == 1 && !vis[i][j]){
+                    count++;
                 }
                 
             }
         }
-        
-        return cnt;
+        return count;
     }
     
-    public void dfs(int row,int col,int n,int m,int[][] grid,int[][] vis,int[] delRow,int[] delCol){
+    public void bfs(int row,int col,int n,int m,int[][] grid,boolean[][] vis){
         
-        vis[row][col] = 1;
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{row,col});
+        vis[row][col] = true;
         
-        for(int i=0;i<4;i++){
+        int[] delRow = {0,1,0,-1};
+        int[] delCol = {-1,0,1,0};
+        
+        while(!q.isEmpty()){
             
-            int nrow = row + delRow[i];
-            int ncol = col + delCol[i];
+            int[] temp = q.poll();
+            row = temp[0];
+            col = temp[1];
             
-            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol] == 1 && vis[nrow][ncol] == 0){
+            for(int i=0;i<4;i++){
                 
-                dfs(nrow,ncol,n,m,grid,vis,delRow,delCol);
+                int nrow = row+delRow[i];
+                int ncol = col+delCol[i];
                 
+                if(nrow<0 || ncol<0 || nrow>n-1 || ncol>m-1){
+                    continue;
+                }
+                else if(grid[nrow][ncol] == 1 && !vis[nrow][ncol]){
+                    q.offer(new int[]{nrow,ncol});
+                    vis[nrow][ncol] = true;
+                }
             }
             
+           
         }
-        
+         return;
     }
     
 }
