@@ -1,16 +1,17 @@
 class Solution {
     public int numJewelsInStones(String jewels, String stones) {
+        HashMap<Integer,Character> map = new HashMap<>();
+        
+       for(int i=0;i<jewels.length();i++){
+           map.put(i,jewels.charAt(i));
+       }
         
         int cnt=0;
         
-        for(int i=0;i<jewels.length();i++){
+        for(int i=0;i<stones.length();i++){
             
-            for(int j=0;j<stones.length();j++){
-                
-                if(jewels.charAt(i) == stones.charAt(j)){
-                    cnt++;
-                }
-                
+            if(map.containsValue(stones.charAt(i))){
+                cnt++;
             }
             
         }
