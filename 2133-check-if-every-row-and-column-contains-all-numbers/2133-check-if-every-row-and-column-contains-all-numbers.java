@@ -4,25 +4,16 @@ class Solution {
         
         for(int i=0;i<n;i++){
             HashSet<Integer> rowset = new HashSet<>();
-            
+            HashSet<Integer> colset = new HashSet<>();
             for(int j=0;j<n;j++){
                 rowset.add(matrix[i][j]);
+                colset.add(matrix[j][i]);
             }
-            if(rowset.size() != n){
+            if(rowset.size() != n || colset.size() != n){
                 return false;
             }
         }
         
-        for(int i=0;i<n;i++){
-            HashSet<Integer> colset = new HashSet<>();
-            
-            for(int j=0;j<n;j++){
-                colset.add(matrix[j][i]);
-            }
-            if(colset.size() != n){
-                return false;
-            }
-        }
         return true;
     }
 }
