@@ -8,7 +8,7 @@ class Solution {
         for(int i=0;i<key.length();i++){
             
             char charKey = key.charAt(i);
-            if(charKey == ' '){
+             if(charKey == ' '){
                 continue;
             }
             if(!subTable.containsKey(charKey)){
@@ -16,24 +16,19 @@ class Solution {
             }
         }
         
+        StringBuilder decode = new StringBuilder();
         
-        StringBuilder sb = new StringBuilder();
-        
-        for(char x: message.toCharArray()){
-            
+        for(char x:message.toCharArray()){
             if(x == ' '){
-                sb.append(' ');
+                decode.append(" ");
             }
-            
             else if(subTable.containsKey(x)){
-                sb.append(subTable.get(x));
+                decode.append(subTable.get(x));
             }
             else{
-                sb.append(x);
+                decode.append(x);
             }
-            
         }
-        return sb.toString();
-        
+        return decode.toString();
     }
 }
