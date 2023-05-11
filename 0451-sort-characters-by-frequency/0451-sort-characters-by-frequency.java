@@ -13,7 +13,7 @@ class Pair{
 class Solution {
     public String frequencySort(String s) {
         
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)-> b.val-a.val);
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->b.val-a.val);
         HashMap<Character,Integer> map = new HashMap<>();
         
         char[] arr = s.toCharArray();
@@ -22,40 +22,34 @@ class Solution {
             int cnt = map.getOrDefault(arr[i],0);
             map.put(arr[i],cnt+1);
         }
-//         Map to Priority Queue
+        
+//         HashMap to PriorityQueue
         
         for(Map.Entry<Character,Integer> entry : map.entrySet()){
             
-            Pair pair = new Pair(entry.getKey(),entry.getValue());
-            pq.add(pair);
-            
+           Pair node = new Pair(entry.getKey(),entry.getValue());
+            pq.add(node);
         }
-//         Priority Queue TO StringBuilder
+        
+//         PriorityQueue to StringBuilder
         
         StringBuilder sb = new StringBuilder();
-        
+            
         while(!pq.isEmpty()){
             
             Pair node = pq.remove();
-            
+            char ch = node.ch;
             int cnt = node.val;
-            char alp = node.ch;
             
-            while(cnt-- >0){
-                sb.append(alp);
+            while(cnt -- >0){
+                sb.append(ch);
             }
-        }    
+        }
+        
         return sb.toString();
+        
     }
 }
-
-
-
-
-
-
-
-
 
 
 
