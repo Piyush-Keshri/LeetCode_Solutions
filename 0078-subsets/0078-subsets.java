@@ -1,27 +1,23 @@
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        List<Integer> sub = new ArrayList<Integer>();
-       int indx = 0;
-        
-     helper(indx,nums,res,sub);
+     
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> ls= new ArrayList<>();
+        generateSubs(0,nums,ls,res);
         return res;
     }
     
-    public void helper(int indx,int[] nums,List<List<Integer>>res,List<Integer>sub){
+    public void generateSubs(int indx,int[] nums,List<Integer>ls,List<List<Integer>> res){
         
         if(indx == nums.length){
-            res.add(new ArrayList<Integer>(sub));
+            res.add(new ArrayList<Integer>(ls));
             return;
         }
         
-        sub.add(nums[indx]);
-        helper(indx+1,nums,res,sub);
-        
-        sub.remove(sub.size()-1);
-        helper(indx+1,nums,res,sub);
-        
+        ls.add(nums[indx]);
+        generateSubs(indx+1,nums,ls,res);
+        ls.remove(ls.size()-1);
+        generateSubs(indx+1,nums,ls,res);
     }
     
 }
