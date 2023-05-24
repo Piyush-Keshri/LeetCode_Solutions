@@ -1,6 +1,6 @@
 # Generate all binary strings
 ## Medium
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an integer <strong>N</strong>&nbsp;, generate all binary strings of size N&nbsp;which do not contain&nbsp;consecutive 1s.</span></p>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an integer <strong>N</strong>&nbsp;, Print all binary strings of size N&nbsp;which do not contain&nbsp;consecutive 1s.</span></p>
 
 <p><span style="font-size:18px">A binary string is that string which contains only 0 and 1.</span></p>
 
