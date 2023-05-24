@@ -27,29 +27,31 @@ class GFG {
 
 class Solution {
   public static List<String> generateBinaryStrings(int n) {
-   ArrayList<String> ls = new ArrayList<String>();
-   
-   String p = "";
-   
-   return generate(p,n,ls);
+ 
+        List<String> res = new ArrayList<>();
+        String s = "";
+        
+        solve(n,s,res);
+        return res;
   }
   
-  public static List<String> generate(String p,int n, ArrayList<String> ls){
+  public static void solve(int n,String s,List<String>res){
       
-      if(n==0){
-          ls.add(p);
-          return ls;
+      if(n == 0){
+          res.add(s);
+          return;
       }
       
-      if(p.endsWith("1")){
-          generate(p+'0',n-1,ls);
+      if(s.endsWith("1")){
+          solve(n-1,s+"0",res);
       }
       else{
-          generate(p+'0',n-1,ls);
-          generate(p+'1',n-1,ls);
+          solve(n-1,s+"0",res);
+          solve(n-1,s+"1",res);
       }
-      return ls;
-  } 
+      
+      
+  }
   
 }
      
