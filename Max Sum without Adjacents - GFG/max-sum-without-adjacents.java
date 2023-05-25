@@ -33,33 +33,20 @@ public class Main {
 class Solution {
     int findMaxSum(int arr[], int n) {
        
-       int[] dp = new int[n+1];
+       int[] dp= new int[n+1];
        Arrays.fill(dp,-1);
+       dp[0] = arr[0];
        
-       return helper(n-1,arr,dp);
+       for(int i=1;i<n;i++){
+        int pick = arr[i];
+        if(i>1){
+        pick += dp[i-2];
+        }
+        int nonpick = dp[i-1];     
        
+        dp[i] = Math.max(pick,nonpick);   
+           
+       }
+       return dp[n-1];
     }
-    
-    int helper(int indx,int[] arr,int[] dp){
-        
-        if(indx == 0){
-            return arr[0];
-        }
-        
-        if(indx<0){
-            return 0;
-        }
-        
-        if(dp[indx]!=-1){
-            return dp[indx];
-        }
-        
-        int pick =arr[indx]+helper(indx-2,arr,dp);
-        
-        int nonpick = helper(indx-1,arr,dp);
-        
-        return dp[indx] = Math.max(pick,nonpick);
-        
-    }
-    
 }
