@@ -33,33 +33,33 @@ class GFG{
 class Solution{
     public int minimumEnergy(int arr[],int N){
         
-        int dp[] = new int[N];
+        int[] dp = new int[N+1];
         Arrays.fill(dp,-1);
-        
         return helper(N-1,arr,dp);
-        
     }
     
-    public int helper(int indx,int arr[],int dp[]){
+    public int helper(int indx,int[] arr,int[] dp){
         
-        if(indx == 0){
+        if(indx ==0){
             return 0;
         }
         
-        if(dp[indx]!=-1){
+        if(dp[indx] != -1){
             return dp[indx];
         }
-        int jumpTwo = Integer.MAX_VALUE;
         
-        int jumpOne = helper(indx-1,arr,dp) + Math.abs(arr[indx-1] - arr[indx]);
+        
+        int jumpOne = helper(indx-1,arr,dp) + Math.abs(arr[indx-1]-arr[indx]);
+        
+        int jumpTwo = Integer.MAX_VALUE;
         
         if(indx>1){
             
-        jumpTwo = helper(indx-2,arr,dp) + Math.abs(arr[indx-2] - arr[indx]);
+            jumpTwo = helper(indx-2,arr,dp) + Math.abs(arr[indx-2]-arr[indx]);
             
         }
         
-    return dp[indx] = Math.min(jumpOne,jumpTwo);
-    } 
+        return dp[indx] = Math.min(jumpOne,jumpTwo);
+    }
     
 }
