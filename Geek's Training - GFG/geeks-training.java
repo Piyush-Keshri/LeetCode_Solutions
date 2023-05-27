@@ -30,51 +30,26 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    public int maximumPoints(int points[][],int N){
-       
-       int[][] dp = new int[N][4];
-       
-       for(int[] row : dp){
-           Arrays.fill(row,-1);
-       }
-       
-       return memo(N-1,3,points,dp);
-       
-    }
-    
-    public int memo(int day,int last,int[][] points,int[][] dp){
-        
-        
-        if(day == 0){
-            
-            int maxi=0;
-            for(int i=0;i<3;i++){
-                
-                if(i!=last){
-                    maxi = Math.max(maxi,points[0][i]);
+    public int maximumPoints(int points[][],int n){
+         int[][] dp = new int[n][4];
+        dp[0][0] = Math.max(points[0][1], points[0][2]);
+        dp[0][1] = Math.max(points[0][0], points[0][2]);
+        dp[0][2] = Math.max(points[0][0], points[0][1]);
+        dp[0][3] = Math.max(points[0][0], Math.max(points[0][1], points[0][2]));
+
+        for (int day = 1; day < n; day++) {
+            for (int last = 0; last < 4; last++) {
+                dp[day][last] = 0;
+                for (int task = 0; task <= 2; task++) {
+                    if (task != last) {
+                        int activity = points[day][task] + dp[day - 1][task];
+                        dp[day][last] = Math.max(dp[day][last], activity);
+                    }
                 }
-                
             }
-            return dp[day][last] = maxi;
+
         }
-        
-        if(dp[day][last] != -1){
-            return dp[day][last];
-        }
-        
-        
-        int max = 0;
-        
-        for(int i=0;i<3;i++){
-            
-            if(i != last){
-                
-               int act = points[day][i] + memo(day-1,i,points,dp);
-                max = Math.max(act,max);
-            }
-            
-        }
-        return dp[day][last]= max;
+
+        return dp[n - 1][3];
     }
-    
 }
