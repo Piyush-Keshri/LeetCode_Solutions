@@ -32,6 +32,6 @@ matrix.</span></pre>
 <strong>Expected Auxiliary Space:&nbsp;</strong>O(A*B).</span></p>
 
 <p><span style="font-size:18px"><strong>Constraints:</strong></span><br>
-<span style="font-size:18px">1 ≤ A ≤ 15<br>
-1 ≤ B ≤ 15</span></p>
+<span style="font-size:18px">1 ≤ A ≤ 16<br>
+1 ≤ B ≤ 16</span></p>
 </div>
