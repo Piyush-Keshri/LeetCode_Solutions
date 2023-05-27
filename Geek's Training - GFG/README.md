@@ -1,6 +1,6 @@
 # Geek's Training
 ## Medium
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Geek is going for n days training program, he can perform any one of these three activities Running, Fighting, and Learning Practice. each activity has the same point on each day. as Geek wants to improve all his skills, he can't do the same activity on two consecutive days, help Geek to maximize his merit points as we were given a 2D array of n*3 points corresponding to each day and activity.</span></p>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Geek is going for n days training program, he can perform any one of these three activities Running, Fighting, and Learning Practice. Each activity has some point on each day. as Geek wants to improve all his skills, he can't do the same activity on two consecutive days, help Geek to maximize his merit points as we were given a 2D array of n*3 points corresponding to each day and activity.</span></p>
 
 <pre><span style="font-size:18px"><strong>Example:</strong>
 <strong>Input:</strong>
