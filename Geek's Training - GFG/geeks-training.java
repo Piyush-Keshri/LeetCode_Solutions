@@ -27,60 +27,54 @@ class GFG{
 // } Driver Code Ends
 
 
+//User function Template for Java
+
 class Solution{
     public int maximumPoints(int points[][],int N){
-        
-        int[][] dp = new int[N][4];
-        
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        
-        return memoization(N-1,3,points,dp);
+       
+       int[][] dp = new int[N][4];
+       
+       for(int[] row : dp){
+           Arrays.fill(row,-1);
+       }
+       
+       return memo(N-1,3,points,dp);
+       
     }
     
-    public int memoization(int day,int last,int[][]points,int[][] dp){
+    public int memo(int day,int last,int[][] points,int[][] dp){
         
-           if(dp[day][last] != -1){
-            return dp[day][last];
-        }
+        
         if(day == 0){
-            int maxi = 0;
-            for(int i = 0;i<=2;i++){
-                if(i!=last)
-                maxi = Math.max(maxi,points[0][i]);
+            
+            int maxi=0;
+            for(int i=0;i<3;i++){
+                
+                if(i!=last){
+                    maxi = Math.max(maxi,points[0][i]);
+                }
+                
             }
             return dp[day][last] = maxi;
         }
         
-        int maxi = 0;
-        for(int i=0;i<=2;i++){
-            
-            if(i!= last){
-                
-                int act = points[day][i] + memoization(day-1,i,points,dp);
-                maxi = Math.max(maxi,act);
-            }
+        if(dp[day][last] != -1){
+            return dp[day][last];
         }
-        return dp[day][last] = maxi;
+        
+        
+        int max = 0;
+        
+        for(int i=0;i<3;i++){
+            
+            if(i != last){
+                
+               int act = points[day][i] + memo(day-1,i,points,dp);
+                max = Math.max(act,max);
+            }
+            
+        }
+        return dp[day][last]= max;
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
