@@ -1,32 +1,28 @@
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         
-        int n = triangle.size();
+        int n= triangle.size();
+        int[][] dp = new int[n+1][n+1];
         
-        int[][] dp = new int[n][n];
-        
-        for(int[] arr : dp){
-            Arrays.fill(arr,Integer.MAX_VALUE);            
+        for(int[] row:dp){
+            Arrays.fill(row,Integer.MAX_VALUE);
         }
-        
-        return memoization(triangle,0,0,dp);
+      return solve(0,0,n,dp,triangle);
     }
-    
-    public int memoization(List<List<Integer>> triangle,int row,int col,int[][] dp){
+    public int solve(int row,int col,int n,int[][] dp,List<List<Integer>> triangle){
         
-        if(row == triangle.size()){
-            return 0;
+        if(row == n-1){
+            return triangle.get(row).get(col);
         }
-        
         if(dp[row][col] != Integer.MAX_VALUE){
             return dp[row][col];
         }
         
-        int traverse = Math.min(memoization(triangle,row+1,col,dp),memoization(triangle,row+1,col+1,dp));
+        int down = triangle.get(row).get(col)+solve(row+1,col,n,dp,triangle);
+        int diag = triangle.get(row).get(col)+ solve(row+1,col+1,n,dp,triangle);
         
-        dp[row][col] = triangle.get(row).get(col) + traverse; 
+        return dp[row][col] = Math.min(down,diag);
         
-        return dp[row][col];
     }
     
 }
