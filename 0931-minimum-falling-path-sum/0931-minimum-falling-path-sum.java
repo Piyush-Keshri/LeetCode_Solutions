@@ -1,59 +1,40 @@
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
+        int n=matrix.length;
+        int[][] dp =new int[n+1][n+1];
         
-        int n = matrix.length;
-        
-        int[][] dp = new int[n][n];
-        
-        for(int[] row: dp){
-            Arrays.fill(row,(int)1e4);
+        for(int[] row:dp){
+            Arrays.fill(row,-1);
         }
-        
-        int mini = Integer.MAX_VALUE;
-        
-        for(int col = 0; col<n;col++){
-            int ans = memoization(n-1,col,n,matrix,dp);
-            mini = Math.min(mini,ans);
+        int ans = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            
+            ans = Math.min(ans,solve(n-1,i,matrix,dp));
+            
         }
-        return mini;
+        return ans;
     }
     
-    public int memoization(int row,int col,int n,int[][] matrix,int[][] dp){
-        
-        if(col<0 || col>=n){
-            return (int)1e4;
+    
+    public int solve(int row,int col,int[][] mat,int[][] dp){
+        if(row<0 || col<0 || col>mat.length-1){
+            return  (int)Math.pow(10,9);
         }
         
         if(row == 0){
-            return matrix[0][col];
+            return mat[row][col];
         }
         
-        if(dp[row][col] != (int)1e4){
+        if(dp[row][col]!=-1){
             return dp[row][col];
         }
         
-        int up = matrix[row][col] + memoization(row-1,col,n,matrix,dp);
-        int ld = matrix[row][col] + memoization(row-1,col-1,n,matrix,dp);
-        int ud = matrix[row][col] + memoization(row-1,col+1,n,matrix,dp);
+        int up = mat[row][col] + solve(row-1,col,mat,dp);
+        int upleft = mat[row][col] + solve(row-1,col-1,mat,dp);
+        int upright = mat[row][col] + solve(row-1,col+1,mat,dp);
         
-        return dp[row][col] = Math.min(up,Math.min(ld,ud));
+        return dp[row][col] = Math.min(up,Math.min(upleft,upright));
+        
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
