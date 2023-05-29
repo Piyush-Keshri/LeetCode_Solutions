@@ -35,36 +35,45 @@ class GFG
 
 class Solution{
 
-
     static Boolean isSubsetSum(int N, int arr[], int sum){
         
-        boolean dp[][] = new boolean[N][sum+1];
-        
-        for(int i =0;i<N;i++){
-            dp[i][0] = true;
+        int[][] dp = new int[N+1][sum+1];
+    
+        for(int[] row:dp){
+            
+            Arrays.fill(row,-1);
         }
         
-        if(arr[0] <= sum){
-            
-            dp[0][arr[0]] = true;
-        }
         
-        for(int indx = 1;indx<N ; indx++){
-            
-            for(int target = 1;target<=sum;target++){
-                
-                boolean notTaken = dp[indx-1][target];
-                
-                boolean taken = false;
-                if(arr[indx]<=target){
-                    taken = dp[indx-1][target - arr[indx]];
-                }
-                
-                dp[indx][target] = notTaken || taken;
-                
-            }
-            
-        }
-        return dp[N-1][sum];
+        return memo(N-1,sum,arr,dp);
+        
     }
+    
+    
+    static boolean memo(int indx,int target,int[] arr,int[][] dp){
+        
+        if(target == 0){
+            return true;
+        }
+        
+        if(indx == 0){
+            return target == arr[0];
+        }
+        
+        if(dp[indx][target] != -1){
+            return dp[indx][target] == 0?false:true;
+        }
+        
+        boolean notTake = memo(indx-1,target,arr,dp);
+        boolean take= false;
+        if(target>=arr[indx]){
+            
+            take = memo(indx-1,target-arr[indx],arr,dp);
+            
+        }
+        dp[indx][target] = notTake||take?1:0;
+        
+        return notTake||take;
+    }
+    
 }
