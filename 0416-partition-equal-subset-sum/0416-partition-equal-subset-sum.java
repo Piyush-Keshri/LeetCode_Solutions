@@ -1,53 +1,48 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int sum = 0;
-        int n = nums.length;
-        for(int x: nums){
+        
+        int sum=0;
+        for(int x:nums){
             sum+=x;
         }
+        if(sum%2 != 0) return false;
         
-        if(sum % 2 != 0){
-            return false;
+        int[][] dp = new int[nums.length][(sum/2)+1];
+      
+        for(int[] rows:dp){
+            Arrays.fill(rows,-1);
         }
         
-        int[][] dp = new int[n][sum/2 + 1]; 
+       return solve(nums.length-1,sum/2,nums,dp);
         
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-       return  memoization(n-1,sum/2,nums,dp);
     }
     
-    public boolean memoization(int indx,int target,int[] arr,int[][] dp){
+    public boolean solve(int indx,int target,int[] arr,int[][] dp){
         
-         if(target == 0){
+        if(target == 0){
             return true;
         }
-        
         if(indx == 0){
-            return target == arr[0];
+            return arr[0] == target;
         }
-        
         if(dp[indx][target] != -1){
-            return dp[indx][target] == 0?false:true;
+            return dp[indx][target] == 0?true:false;
         }
         
-        boolean notTaken = memoization(indx-1,target,arr,dp);
-        boolean taken = false;
+        boolean nt = solve(indx-1,target,arr,dp);
         
-        if(arr[indx] <= target){
-            taken = memoization(indx-1,target-arr[indx],arr,dp);
+        boolean take =false;
+        
+        if(target>=arr[indx]){
+            take = solve(indx-1,target-arr[indx],arr,dp);
         }
         
-        dp[indx][target] = notTaken || taken ? 1:0;
-            return notTaken || taken;
+        dp[indx][target] = take||nt?0:1;
         
+        return take||nt;
     }
     
 }
-
-
-
 
 
 
