@@ -1,45 +1,35 @@
 class Solution {
-    public boolean canPartition(int[] nums) {
-        
-        int sum=0;
-        for(int x:nums){
-            sum+=x;
+    public boolean canPartition(int[] arr) {
+        int n = arr.length;
+        int s=0;
+        for(int x:arr){
+            s+=x;
         }
-        if(sum%2 != 0) return false;
+        if(s%2 != 0) return false;
         
-        int[][] dp = new int[nums.length][(sum/2)+1];
-      
-        for(int[] rows:dp){
-            Arrays.fill(rows,-1);
-        }
+        boolean[][] dp = new boolean[n][(s/2)+1];
         
-       return solve(nums.length-1,sum/2,nums,dp);
-        
-    }
-    
-    public boolean solve(int indx,int target,int[] arr,int[][] dp){
-        
-        if(target == 0){
-            return true;
-        }
-        if(indx == 0){
-            return arr[0] == target;
-        }
-        if(dp[indx][target] != -1){
-            return dp[indx][target] == 0?true:false;
+        for(int i=0;i<n;i++){
+            dp[i][0] = true;
         }
         
-        boolean nt = solve(indx-1,target,arr,dp);
+        if(arr[0] <= s/2) dp[0][arr[0]] = true;
         
-        boolean take =false;
-        
-        if(target>=arr[indx]){
-            take = solve(indx-1,target-arr[indx],arr,dp);
+        for(int i=1;i<n;i++){
+            
+            for(int j=1;j<=s/2;j++){
+                
+                boolean nt = dp[i-1][j];
+                boolean tk = false;
+                
+                if(arr[i] <= j){
+                    tk = dp[i-1][j-arr[i]];
+                }
+                dp[i][j] = nt||tk;
+            }
+            
         }
-        
-        dp[indx][target] = take||nt?0:1;
-        
-        return take||nt;
+        return dp[n-1][s/2];
     }
     
 }
