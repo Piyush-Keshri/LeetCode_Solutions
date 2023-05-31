@@ -54,37 +54,29 @@ class Solution
         
         int[][] dp = new int[n+1][W+1];
         
-        for(int[] row:dp){
-            Arrays.fill(row,-1);
+        for(int i=wt[0];i<=W;i++){
+            
+            dp[0][i] = val[0];
         }
         
-        return solve(n-1,W,wt,val,dp);
+        for(int indx = 1;indx<n;indx++){
+            
+            for(int cap=0;cap<=W;cap++){
+                
+                int notTake = 0+dp[indx-1][cap];
+                int take= 0;
+                if(wt[indx]<=cap){
+                    take = val[indx]+dp[indx-1][cap-wt[indx]];
+                }
+                
+                dp[indx][cap] = Math.max(take,notTake);
+            }
+            
+        }
         
+        return dp[n-1][W];   
     } 
     
-    static int solve(int indx,int W,int[] wt,int[] val,int[][] dp){
-        
-        if(indx == 0){
-            
-            if(W>=wt[0]) return val[0];
-            return 0;
-            
-        }
-        
-        if(dp[indx][W] != -1){
-            return dp[indx][W];
-        }
-        
-        int notTake = 0 + solve(indx-1,W,wt,val,dp);
-        int take = 0;
-        
-        if(W>=wt[indx]){
-            
-            take = val[indx] + solve(indx-1,W-wt[indx],wt,val,dp);
-            
-        }
-        return dp[indx][W] = Math.max(take,notTake);
-    }
     
 }
 
