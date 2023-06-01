@@ -1,53 +1,67 @@
-class Pair{
+class Tuple{
     
-    int row;int col;int steps;
-    
-    Pair(int row,int col,int steps){
+    int row;
+    int col;
+    int steps;
+    public Tuple(int row,int col,int steps){
+         
         this.row = row;
         this.col = col;
         this.steps = steps;
-    }
-    
+    } 
 }
 
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;
         
-        Queue<Pair> q = new LinkedList<>();
+        if(grid[0][0] == 1 || grid[n-1][n-1] == 1) return -1;
         
-        q.add(new Pair(0,0,1));
+        Queue<Tuple>pq = new LinkedList<>();
+        pq.add(new Tuple(0,0,1));
         
-       int target_row = grid.length - 1;
-       int target_col = grid[0].length -1;
+        int[][] vis = new int[n][n];
+        vis[0][0] = 1;
+        int[] dir = {1,1,0,1,-1,-1,0,-1};
+        int[] dic = {1,0,1,-1,1,0,-1,-1};
         
-        while(!q.isEmpty()){
+        while(!pq.isEmpty()){
             
-            int row = q.peek().row;
-            int col = q.peek().col;
-            int steps = q.peek().steps;
+            Tuple tup = pq.poll();
+            int row = tup.row;
+            int col = tup.col;
+            int steps = tup.steps;
             
-            q.remove();
-            
-            if(row >=0 && col>= 0 && row< grid.length && col<grid[0].length && grid[row][col] != 1){
+            if(row == n-1 && col == n-1){
+                return steps;
+            }
+            for(int i=0;i<8;i++){
                 
-                grid[row][col] = 1;
+                int nrow = row+dir[i];
+                int ncol = col+dic[i];
                 
-                if(row == target_row && col == target_col){
-                    return steps;
+                if(nrow>=0 && ncol>=0 && nrow<n && ncol<n && vis[nrow][ncol] == 0 && grid[nrow][ncol] == 0){
+                    
+                    pq.add(new Tuple(nrow,ncol,steps+1));
+                    vis[nrow][ncol] = 1;
                 }
                 
-                q.add(new Pair(row-1,col-1,steps+1));
-                q.add(new Pair(row-1,col,steps+1));
-                q.add(new Pair(row-1,col+1,steps+1));
-                q.add(new Pair(row,col-1,steps+1));
-                q.add(new Pair(row,col+1,steps+1));
-                q.add(new Pair(row+1,col-1,steps+1));
-                q.add(new Pair(row+1,col,steps+1));
-                q.add(new Pair(row+1,col+1,steps+1));
-                
-            }
+            }            
             
         }
         return -1;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
