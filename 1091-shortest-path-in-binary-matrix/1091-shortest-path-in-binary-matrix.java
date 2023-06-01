@@ -17,7 +17,7 @@ class Solution {
         
         if(grid[0][0] == 1 || grid[n-1][n-1] == 1) return -1;
         
-        Queue<Tuple>pq = new LinkedList<>();
+        PriorityQueue<Tuple>pq = new PriorityQueue<>((a,b)->a.steps-b.steps);
         pq.add(new Tuple(0,0,1));
         
         int[][] vis = new int[n][n];
