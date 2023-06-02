@@ -1,28 +1,40 @@
 class Solution {
     public int arithmeticTriplets(int[] nums, int diff) {
-        
-        int ans = 0;
-        Arrays.sort(nums);
-        
-        for(int i=0;i<nums.length-1;i++){
-           
-            int n1 = nums[i];
+        int cnt = 0;
+        for(int i=0;i<nums.length;i++){
             
-            for(int j=i+1;j<nums.length;j++){
-                
-                if(n1+diff == nums[j]){
-                    
-                    for(int k=j+1;k<nums.length;k++){
-                        if(n1+diff+diff == nums[k]){
-                            ans++;
-                        }
-                    }
-                    
-                }
-                
+            boolean nxt = binarySearch(nums,nums[i]+diff);
+            boolean nxt1 = binarySearch(nums,nums[i]+diff+diff);
+        
+            if(nxt && nxt1){
+                cnt++;
             }
             
         }
-        return ans;
+        return cnt;
     }
+    
+    public boolean binarySearch(int[] nums,int target){
+        
+        int st = 0;
+        int end = nums.length-1;
+        
+        while(st<=end){
+            
+            int mid = st+(end-st)/2;
+            
+            if(target == nums[mid]){
+                return true;
+            }
+            
+            else if(target<nums[mid]){
+                end = mid-1;
+            } 
+            else{
+                st = mid+1;
+            }
+        }
+        return false;
+    }
+    
 }
