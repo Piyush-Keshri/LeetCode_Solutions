@@ -34,38 +34,34 @@ class Solution
        
        int[][] dp = new int[n+1][n+1];
         
-        for(int[] arr : dp){
+        for(int i=0;i<=n;i++){
             
-            Arrays.fill(arr,-1);
-            
-        }        
-        
-        return  solve(n-1,n-1,S,S1,dp);
-        
-    }
-    
-    
-    public int solve(int indx1,int indx2,String s1,String s2,int[][] dp){
-        
-        if(indx1<0 || indx2<0){
-            return 0;
-        }
-        
-        
-        if(dp[indx1][indx2] != -1){
-            return dp[indx1][indx2];
+            dp[i][0] = 0;
             
         }
         
-        
-        if(s1.charAt(indx1) == s2.charAt(indx2)){
+        for(int i=0;i<=n;i++){
             
-            return dp[indx1][indx2] = 1 + solve(indx1-1,indx2-1,s1,s2,dp);
+            dp[0][i] = 0;
             
         }
-            
-        return dp[indx1][indx2] = Math.max(solve(indx1-1,indx2,s1,s2,dp),solve(indx1,indx2-1,s1,s2,dp));
         
+        for(int indx1 = 1;indx1<=n;indx1++){
+            
+            for(int indx2 = 1;indx2<=n;indx2++){
+                
+                
+                if(S.charAt(indx1-1) == S1.charAt(indx2-1)){
+                    dp[indx1][indx2] = 1+dp[indx1-1][indx2-1];
+                }
+                else{
+                    dp[indx1][indx2] = Math.max(dp[indx1][indx2-1],dp[indx1-1][indx2]);
+                }
+                
+            }
+            
+        }
+        return dp[n][n];
         
     }
     
