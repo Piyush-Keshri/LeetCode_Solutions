@@ -1,11 +1,27 @@
 class Solution {
-    public int distanceTraveled(int mainTank, int additionalTank) {
-        int travel = 0;
-        while(mainTank > 0){
-            travel++;
-            mainTank--;
-            if(travel != 0 && travel % 5 == 0 && additionalTank-- > 0)  mainTank++;
+    public int distanceTraveled(int mt, int at) {
+
+    int ans = 0;
+        
+        while(mt>0){
+            
+            if(mt >= 5){
+                ans+=5;
+                mt-=5;
+
+                if(at >= 1){
+                    at--;
+                    mt++;
+                }
+                
+            }
+            else{
+                ans+=mt;
+                mt = 0;
+            }
+            
         }
-        return travel * 10;
+    return ans *10;
+        
     }
 }
