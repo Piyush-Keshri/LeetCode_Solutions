@@ -1,26 +1,13 @@
 class Solution {
     public int singleNumber(int[] nums) {
-       
-        Map<Integer,Integer> map = new HashMap<>();
-        
-        for(int i=0;i<nums.length;i++){
-            
-            if(map.containsKey(nums[i])){
-                
-                map.put(nums[i],map.get(nums[i])+1);
-            }
-            else{
-                map.put(nums[i],1);
-            }
-            
+        int ones = 0;
+        int twos = 0;
+
+        for (int num : nums) {
+            ones = (ones ^ num) & ~twos;
+            twos = (twos ^ num) & ~ones;
         }
-        for(Map.Entry<Integer,Integer> it:map.entrySet()){
-            
-            if(it.getValue() == 1){
-                return it.getKey();
-            }
-            
-        }
-        return -1;
+
+        return ones;
     }
 }
