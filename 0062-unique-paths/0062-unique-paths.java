@@ -1,30 +1,36 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[][] dp = new int[m+1][n+1];
-        for(int[] row:dp){
-           Arrays.fill(row,-1); 
+        int[][] dp = new int[m][n];
+        for(int[] rows:dp){
+            
+            Arrays.fill(rows,-1);
         }
-        return memo(m-1,n-1,dp);
+        return solve(0,0,m,n,dp);
+        
+        
     }
     
-    public int memo(int row,int col,int[][] dp){
+    public int solve(int row,int col,int m,int n,int[][] dp){
         
-        if(row == 0 || col == 0){
-            return dp[row][col] = 1;
-        }
-        
-        if(row<0 || col<0){
-            return dp[row][col] = 0;
+        if(row>m-1 || col>n-1){
+            return 0;
         }
         
         if(dp[row][col] != -1){
             return dp[row][col];
         }
         
-        int up = memo(row-1,col,dp);
-        int left = memo(row,col-1,dp);
+        if(row == m-1 && col == n-1){
+            return 1;
+        }
+        
+        
+        int up = solve(row+1,col,m,n,dp);
+        
+        int left = solve(row,col+1,m,n,dp);
         
         return dp[row][col] = up+left;
+        
     }
     
 }
