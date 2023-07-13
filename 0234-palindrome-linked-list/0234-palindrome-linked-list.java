@@ -11,24 +11,52 @@
 class Solution {
     public boolean isPalindrome(ListNode head) {
         
-        ArrayList<Integer> ls = new ArrayList<>();
+        ListNode mid = findMiddle(head);
+        ListNode secondHead = reverse(mid);
         
-        while(head != null){
-            ls.add(head.val);
-            head = head.next;
-        }
-        
-        int st = 0;
-        int end = ls.size()-1;
-        
-        while(st<=end){
+        while(head != null && secondHead != null){
             
-            if(ls.get(st) != ls.get(end)){
+            if(head.val != secondHead.val){
                 return false;
             }
-            st++;
-            end--;
+            head = head.next;
+            secondHead = secondHead.next;
         }
         return true;
     }
+    
+    public ListNode findMiddle(ListNode head){
+        
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while(fast!=null && fast.next!=null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }        
+        return slow;
+        
+    }
+    
+    public ListNode reverse(ListNode head){
+        
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while(curr != null){
+            
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+    
 }
+
+
+
+
+
+
