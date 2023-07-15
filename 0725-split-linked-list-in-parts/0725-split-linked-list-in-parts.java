@@ -17,21 +17,24 @@ class Solution {
             return res;
         }
         
-        ListNode temp = head;
         int length = 1;
+        ListNode temp = head;
+        
         while(temp.next != null){
             temp = temp.next;
-            length+=1;
+            length++;
         }
         
         int size = length/k;
         int extra = length%k;
         
         ListNode prev = null;
+        
         for(int i=0;i<k && head!=null;i++){
             res[i] = head;
             
             int currsize = size;
+            
             if(extra-- > 0){
                 currsize+=1;
             }
@@ -45,11 +48,6 @@ class Solution {
         return res;
     }
 }
-
-
-
-
-
 
 
 
