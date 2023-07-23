@@ -3,14 +3,15 @@ class Solution {
         
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> ls = new ArrayList<>();
-        boolean[] vis = new boolean[nums.length];
         
-        solve(nums,vis,ls,res);
+        boolean[] vis = new boolean[nums.length+1];
+        
+        solve(0,nums,vis,ls,res);
         
         return res;
     }
     
-    public void solve(int[] nums,boolean[]vis,List<Integer> ls,List<List<Integer>>res){
+    public void solve(int indx,int[] nums,boolean[] vis,List<Integer> ls,List<List<Integer>> res){
         
         if(ls.size() == nums.length){
             res.add(new ArrayList<>(ls));
@@ -22,13 +23,12 @@ class Solution {
             if(vis[i] == false){
                 vis[i] = true;
                 ls.add(nums[i]);
-                solve(nums,vis,ls,res);
+                solve(i+1,nums,vis,ls,res);
                 ls.remove(ls.size()-1);
                 vis[i] = false;
             }
             
         }
-        
-    } 
-    
+    }
+     
 }
