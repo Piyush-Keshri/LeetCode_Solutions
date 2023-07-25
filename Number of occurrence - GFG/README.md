@@ -1,5 +1,5 @@
 # Number of occurrence
-## Easy
+## Medium
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a sorted array <strong>Arr&nbsp;</strong>of size <strong>N </strong>and a number <strong>X</strong>, you need to find the number of occurrences of<strong> X</strong> in <strong>Arr</strong>.</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
