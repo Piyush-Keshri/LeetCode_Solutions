@@ -36,12 +36,10 @@ class Solution
     //Function to return the sorted array.
     ArrayList <Integer> nearlySorted(int arr[], int num, int k)
     {
-        
         ArrayList<Integer> ls = new ArrayList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         
         for(int x:arr){
-            
             pq.add(x);
             
             if(pq.size() > k){
@@ -53,10 +51,10 @@ class Solution
         }
         
         while(pq.size() > 0){
-            
             ls.add(pq.remove());
-            
         }
+        
         return ls;
+        
     }
 }
