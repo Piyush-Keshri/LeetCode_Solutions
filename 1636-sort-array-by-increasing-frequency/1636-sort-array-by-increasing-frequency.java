@@ -1,51 +1,53 @@
 class Pair{
-    int val;
-    int cnt;
     
-    public Pair(int val,int cnt){
-        this.val = val;
-        this.cnt = cnt;
+    int key;
+    int freq;
+    
+    public Pair(int key,int freq){
+        this.key = key;
+        this.freq = freq;
     }
     
 }
 
 class Solution {
     public int[] frequencySort(int[] nums) {
+        
         HashMap<Integer,Integer> map = new HashMap<>();
         
-        for(int x : nums){
-            
-            if(map.containsKey(x)){
-                map.put(x,map.get(x)+1);
-            }
-            else{
-                map.put(x,1);
-            }
+        for(int i : nums){
+            map.put(i,map.getOrDefault(i,0)+1);
         }
         
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> (a.cnt == b.cnt?b.val-a.val:a.cnt-b.cnt));
-        
-        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> {
             
-           Pair node = new Pair(entry.getKey(),entry.getValue());
-            pq.add(node);
-        }
+           if(map.get(a.key) == map.get(b.key)){
+               return b.key-a.key;
+           }
+            return map.get(a.key)-map.get(b.key);
+            
+        });
         
+        
+        for(Map.Entry<Integer,Integer> it : map.entrySet()){
+            
+            pq.add(new Pair(it.getKey(),it.getValue()));
+            
+        }
         
         int[] ans = new int[nums.length];
-        int k=0;
-        while(!pq.isEmpty()){
+        int indx = 0;
+        while(pq.size() > 0){
+            Pair p = pq.poll();
+            int key = p.key;
+            int freq = p.freq;
             
-            Pair node = pq.remove();
-            int val = node.val;
-            int cnt = node.cnt;
-            
-            while(cnt-- > 0){
-                ans[k] = val;
-                k++;
+            while(freq-->0){
+                ans[indx] = key;
+                indx++;
             }
-            
         }
         return ans;
+        
     }
 }
