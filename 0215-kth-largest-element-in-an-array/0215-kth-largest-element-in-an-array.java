@@ -6,12 +6,12 @@ class Solution {
         for(int x:nums){
             pq.add(x);
         
-            if(pq.size() > k){
+            if(pq.size()>k){
                 pq.remove();
             }
         }
         
-        return pq.peek();
+       return pq.peek();
         
     }
 }
