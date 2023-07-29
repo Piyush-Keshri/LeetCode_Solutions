@@ -44,6 +44,7 @@ class Pair{
         this.ele = ele;
         this.indx = indx;
     }
+    
 }
 
 class Solution
@@ -51,36 +52,39 @@ class Solution
     //Function to calculate the span of stockâ€™s price for all n days.
     public static int[] calculateSpan(int price[], int n)
     {
-        Stack<Pair> st = new Stack<>();
-        
-        int[] ans = new int[n];
-        
-        for(int i=0;i<n;i++){
-            
-            if(st.isEmpty()){
-                ans[i] = -1; 
+       
+       int[] ans = new int[n];
+       Stack<Pair> st = new Stack<>();
+       
+       for(int i=0;i<n;i++){
+           
+           if(st.isEmpty()){
+               ans[i] = -1;
+           }
+           
+           while(!st.isEmpty() && st.peek().ele <= price[i]){
+               st.pop();
+           }
+           
+           if(st.isEmpty()){
+               ans[i] = -1;
+           }
+           
+           else if(st.peek().ele > price[i]){
+               ans[i] = st.peek().indx;
             }
-            
-            while(!st.isEmpty() && st.peek().ele <= price[i]){
-                st.pop();
-            }
-            
-            if(st.isEmpty()){
-                ans[i] = -1;
-            }
-            else if(st.peek().ele > price[i]){
-                ans[i] = st.peek().indx;
-            }
-            
-            st.add(new Pair(price[i],i));
-        }
-        
-        for(int i=0;i<n;i++){
-            
-            ans[i] = i-ans[i];
-            
-        }
-        return ans;
+           
+           st.push(new Pair(price[i],i));
+           
+       }
+       
+       for(int i=0;i<n;i++){
+           
+           ans[i] = i-ans[i];
+           
+       }
+       return ans;
+       
     }
     
 }
