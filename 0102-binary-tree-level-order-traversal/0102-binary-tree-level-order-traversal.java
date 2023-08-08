@@ -23,28 +23,28 @@ class Solution {
         if(root == null){
             return res;
         }
-        
         q.add(root);
-        
         while(!q.isEmpty()){
             
             int levelNum = q.size();
             List<Integer> ls = new ArrayList<>();
-            
-            for(int i=0;i<levelNum;i++)
-            {
+            for(int i=0;i<levelNum;i++){
+                
                 if(q.peek().left != null){
                     q.add(q.peek().left);
                 }
+                
                 if(q.peek().right != null){
                     q.add(q.peek().right);
                 }
+                
                 ls.add(q.poll().val);
+                
             }
-            res.add(ls);
+            res.add(new ArrayList<>(ls));
+            
         }
         
         return res;
-        
     }
 }
