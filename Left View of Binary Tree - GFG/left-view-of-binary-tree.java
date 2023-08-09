@@ -120,71 +120,36 @@ class Node
         left = right = null;
     }
 }*/
-
-class Pair{
-    
-    Node node;int lvl;
-    public Pair(Node node,int lvl){
-        this.node = node;
-        this.lvl = lvl;
-    }
-    
-}
-
 class Tree
 {
     //Function to return list containing elements of left view of binary tree.
     ArrayList<Integer> leftView(Node root)
     {
-     
-     ArrayList<Integer> res = new ArrayList<>();
-     
-     if(root == null){
-         return res;
-     }
-     
-     Queue<Pair> q = new LinkedList<>();
-     Map<Integer,Integer> map = new HashMap<>();
-     
-     q.add(new Pair(root,0));
-     
-     while(!q.isEmpty()){
-        
-         Pair pair = q.poll();
-         Node curr = pair.node;
-         int lvl = pair.lvl;
-         
-        if(!map.containsKey(lvl)){
-            map.put(lvl,curr.data);
-        } 
-        
-        if(curr.left!=null){
-            q.add(new Pair(curr.left,lvl+1));
-        }
-         
-        if(curr.right!= null){
-            q.add(new Pair(curr.right,lvl+1));
-        }
-         
-     }
-     
-     for(Map.Entry<Integer,Integer> entry : map.entrySet()){
-         
-         
-         res.add(entry.getValue());
-         
-     }
-     return res;
+      
+      ArrayList<Integer> ans = new ArrayList<Integer>();
+      
+      solve(root,ans,0);
+      
+      return ans;
     }
+    
+    public void solve(Node root ,ArrayList<Integer>ans,int lvl){
+        
+        if(root == null){
+            
+            return;
+            
+        }
+        
+        if(ans.size() == lvl){
+            ans.add(root.data);
+        }
+        
+        solve(root.left,ans,lvl+1);
+        solve(root.right,ans,lvl+1);
+        
+        
+    }
+    
+    
 }
-
-
-
-
-
-
-
-
-
-
-
