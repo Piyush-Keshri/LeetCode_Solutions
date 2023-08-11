@@ -97,40 +97,49 @@ class GfG {
 // } Driver Code Ends
 
 
-// User function Template for Java
-
-/* A Binary Tree node
-
-class Node {
-    int data;
-    Node left, right;
-   Node(int item)    {
-        data = item;
-        left = right = null;
-    }
-} */
 class Solution {
     // Function to return a list containing the inorder traversal of the tree.
     ArrayList<Integer> inOrder(Node root) {
-        ArrayList<Integer> res = new ArrayList<>();
         
-        solve(root,res);
-        
-        return res;
-        
-    }
-    
-    public void solve(Node root,ArrayList<Integer>res){
-        
+        ArrayList<Integer> ls = new ArrayList<Integer>();
         
         if(root == null){
-            return;
+            return ls;
         }
         
-        solve(root.left,res);
-        res.add(root.data);
-        solve(root.right,res);
+        Node curr = root;
+        
+        while(curr != null){
+            
+            if(curr.left == null){
+                ls.add(curr.data);
+                curr = curr.right;
+            }
+            
+            else{
+                Node prev = curr.left;
+                while(prev.right != null && prev.right != curr){
+                    
+                    prev = prev.right;
+                    
+                }
+                
+                if(prev.right == null){
+                    prev.right = curr;
+                    curr = curr.left;
+                }
+                
+                else{
+                    
+                    prev.right = null;
+                    ls.add(curr.data);
+                    curr = curr.right;
+                }
+                
+            }
+            
+        }
+        return ls;
         
     }
-    
 }
