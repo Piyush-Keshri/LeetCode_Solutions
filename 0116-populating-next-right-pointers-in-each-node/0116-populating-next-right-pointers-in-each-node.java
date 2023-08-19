@@ -25,57 +25,15 @@ class Solution {
     public Node connect(Node root) {
         
         if(root == null){
-            return null;
+            return root;
         }
         
-        Queue<Node> q = new LinkedList<>();
-        q.add(root);
-        
-        root.next = null;
-        
-        while(!q.isEmpty()){
-            
-            int level = q.size();
-            
-            for(int i=0;i<level;i++){
-    
-            Node curr = q.poll();
-            
-            if(curr.left != null){ 
-                q.add(curr.left);
-            }
-            
-            if(curr.right != null){
-                q.add(curr.right);
-            }
-                        
-            if(i == level-1)
-                curr.next = null;
-            
-            else
-                curr.next = q.peek();
-            
+        if(root.left != null) root.left.next = root.right;
+        if(root.right != null && root.next!=null){
+            root.right.next  = root.next.left;
         }
-    }
+        connect(root.left);
+        connect(root.right);
         return root;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
